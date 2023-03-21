@@ -20,7 +20,7 @@ class Cat:
             "jump_right": reverse_animation(self.animations["jump_left"]),
         }
         self.pos = pygame.Vector2()
-        self.vel = pygame.Vector2(0)
+        self.vel = pygame.Vector2(1)
         self.gravity = 0.25
         self.rect = self.animations["jump_left"].frames[0].get_rect()
 
