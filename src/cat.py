@@ -31,12 +31,17 @@ class Cat:
         """Drag-and-drop cat movement"""
         self.rect.center = event_info["mouse_pos"]
         self.pos.xy = self.rect.topleft
-        self.vel.y = 0
+        self.vel.y = max(event_info["mouse_vel"].y, -8)
+        self.vel.x = max(min(event_info["mouse_vel"].x, 20), -20)
 
-    def move(self, dt: float):
+    def move(self, event_info: EventInfo):
+        dt = event_info["dt"]
         self.pos += self.vel * dt
         self.rect.topleft = self.pos
         self.vel.y += self.gravity * dt
+
+        if self.vel.x not in (-1, 1):
+            self.vel.x = round(pygame.Vector2(self.vel.x).move_towards((1, 0), round(1 * dt)).x)
 
         if self.vel.x > 0:
             self.facing = "right"
@@ -47,11 +52,15 @@ class Cat:
         if event_info["mouse_btn"][0]:
             self.move_dnd(event_info)
         else:
-            self.move(event_info["dt"])
+            self.move(event_info)
 
         if self.rect.bottom >= self.screen_size[1]:
             self.vel.y = 0
             self.rect.bottom = self.screen_size[1]
+            self.pos.y = self.rect.top
+        elif self.rect.top < 0:
+            self.vel.y = 0
+            self.rect.top = 0
             self.pos.y = self.rect.top
 
         if self.rect.left <= 0:
