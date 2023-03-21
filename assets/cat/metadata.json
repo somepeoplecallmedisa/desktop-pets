@@ -1,0 +1,17 @@
+{
+    "cat_idle.png": {
+        "sprite_sheet": [20, 19],
+        "convert_alpha": true,
+        "resize_by": 7
+    },
+    "cat_jump.png": {
+        "sprite_sheet": [20, 19],
+        "convert_alpha": true,
+        "resize_by": 7
+    },
+    "cat_walk.png": {
+        "sprite_sheet": [20, 19],
+        "convert_alpha": true,
+        "resize_by": 7
+    }
+}
